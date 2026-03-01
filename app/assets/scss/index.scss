@@ -1,0 +1,73 @@
+$-colors: (
+        'primary': (
+                'base': rgba(107, 33, 168, 1),
+        ),
+        'success': (
+                'base': green,
+        ),
+        'warning': (
+                'base': #f9a23c,
+        ),
+        'danger': (
+                'base': #ff3300,
+        ),
+        'error': (
+                'base': #f56c6c,
+        ),
+        'info': (
+                'base': #909399,
+        ),
+);
+
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+$colors: $-colors
+);
+
+@use './dark.scss';
+
+
+/* Ensure the app root fills the viewport so our layout can use 100% heights */
+html, body, #__nuxt, #app {
+  height: 100%;
+  margin: 0;
+}
+
+.common-layout {
+  min-height: 100vh; /* ensure at least full viewport height */
+  display: flex;
+  flex-direction: column;
+  /* Make the Element Plus container a column flex that fills available space */
+  .el-container {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* allow children to correctly handle overflow */
+  }
+
+  /* Header stays at the top and above content when scrolling */
+  .app-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background-color: #1f2937; /* slate-800 */
+    color: #ffffff;
+    padding: 12px 16px;
+    font-weight: 600;
+  }
+
+  /* Main content takes remaining space and scrolls if needed */
+  .app-main {
+    flex: 1 1 auto;
+    overflow: auto;
+    padding: 16px;
+  }
+
+  /* Footer will remain at the bottom of the layout (because container is column flex) */
+  .app-footer {
+    flex: 0 0 auto;
+    background-color: #111827; /* gray-900 */
+    color: #ffffff;
+    padding: 12px 16px;
+    text-align: center;
+  }
+}
