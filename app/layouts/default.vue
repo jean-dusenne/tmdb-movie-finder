@@ -8,12 +8,8 @@
         <slot />
       </el-main>
       <el-footer class="app-footer">
-        2026 - Made with ❤️
+        2026 - copy id and paste it in jellyfin to update movie metadata
       </el-footer>
     </el-container>
   </div>
 </template>
-
-<style>
-
-</style>
