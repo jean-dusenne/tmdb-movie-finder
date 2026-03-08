@@ -1,4 +1,4 @@
-ARG RUNTIME_IMAGE=gcr.io/distroless/nodejs24-debian13
+ARG RUNTIME_IMAGE=node:24-slim
 
 # Multi-stage Dockerfile
 # Builder: use official Node 24 to install deps and build
@@ -17,7 +17,7 @@ RUN npm run build
 # Remove dev dependencies to keep node_modules light
 RUN npm prune --production
 
-# Runtime image choice: default to the requested distroless Node 24 image.
+# Runtime image choice: default to the requested Node 24 slim image.
 # You can override this at build time if needed (for local testing):
 # docker build --build-arg RUNTIME_IMAGE=node:24-slim -t image:tag .
 FROM ${RUNTIME_IMAGE} AS runtime
@@ -32,7 +32,5 @@ ENV NODE_ENV=production
 ENV PORT=8989
 EXPOSE 8989
 
-# Rely on the base image's ENTRYPOINT (distroless Node images include an entrypoint
-# to the node binary). Provide only the script path as CMD so the final command
-# is ENTRYPOINT + CMD.
+# Provide the server entrypoint via CMD.
 CMD [".output/server/index.mjs"]

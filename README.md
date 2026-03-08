@@ -8,16 +8,7 @@ Make sure to install dependencies:
 
 ```bash
 # npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+npm install ci
 ```
 
 ## Development Server
@@ -27,15 +18,6 @@ Start the development server on `http://localhost:8989`:
 ```bash
 # npm
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
 ## Production
@@ -45,15 +27,6 @@ Build the application for production:
 ```bash
 # npm
 npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
 Locally preview production build:
@@ -61,43 +34,24 @@ Locally preview production build:
 ```bash
 # npm
 npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
 ## Docker
 
-Build the production image (default: distroless Node 24 image `gcr.io/distroless/nodejs24-debian13`):
+Build the production image (default: use `node:24-slim` as runtime):
 
 ```bash
-# Build (distroless by default)
-docker build -t tmdb-movie-finder:distroless .
+# Build (default runtime node:24-slim)
+docker build -t tmdb-movie-finder:local .
 ```
 
 Run the container (exposes port 8989):
 
 ```bash
-docker run -d -p 8989:8989 --name tmdb-movie-finder tmdb-movie-finder:distroless
+docker run -d -p 8989:8989 --name tmdb-movie-finder tmdb-movie-finder:local
 ```
-
-Override the runtime image (useful for local testing with `node:24-slim`):
-
-```bash
-# Build using a different runtime image (example: node:24-slim)
-docker build --build-arg RUNTIME_IMAGE=node:24-slim -t tmdb-movie-finder:local .
-# Run the locally-built image
-docker run -d -p 8989:8989 --name tmdb-movie-finder-local tmdb-movie-finder:local
-```
-
 Passing environment variables (using a .env file)
 
 It's recommended to keep your `.env` out of the image and provide it at runtime. Add `.env` to `.dockerignore` (already done) so secrets are not included in the build context.
@@ -114,19 +68,18 @@ Run with `--env-file` to inject these variables at container start:
 
 ```bash
 # Build (image remains generic, no secrets baked in)
-docker build -t tmdb-movie-finder:distroless .
+docker build -t tmdb-movie-finder:local .
 
 # Run and load variables from .env
-docker run --env-file .env -d -p 8989:8989 --name tmdb-movie-finder tmdb-movie-finder:distroless
+docker run --env-file .env -d -p 8989:8989 --name tmdb-movie-finder tmdb-movie-finder:local
 ```
 
 docker-compose example (convenient for local development):
 
 ```yaml
-version: "3.8"
 services:
   app:
-    image: tmdb-movie-finder:distroless
+    image: tmdb-movie-finder:local
     build:
       context: .
       args:
@@ -157,12 +110,12 @@ curl -I http://localhost:8989
 docker rm -f tmdb-movie-finder || true
 
 # Remove image
-docker rmi tmdb-movie-finder:distroless || true
+docker rmi tmdb-movie-finder:local || true
 ```
 
 Notes:
 - Docker must be installed and running locally to use these commands.
-- The Dockerfile uses a multi-stage build: the app is built with `node:24` and run on the minimal runtime defined by the `RUNTIME_IMAGE` build-arg (default: `gcr.io/distroless/nodejs24-debian13`).
+- The Dockerfile uses a multi-stage build: the app is built with `node:24` and run on the runtime defined by the `RUNTIME_IMAGE` build-arg (default: `node:24-slim`).
 - To force a different runtime (for CI or local debugging), use `--build-arg RUNTIME_IMAGE=...` when building.
 
 ## Deployment on a NAS
@@ -227,16 +180,7 @@ cd /path/to/project
 docker compose up --build -d
 ```
 
-3) Runtime override (optional)
-
-To force a different runtime image (useful for debug/local) :
-
-```bash
-# from the NAS
-RUNTIME_IMAGE=node:24-slim docker compose up --build -d
-```
-
-4) Checks and management
+3) Checks and management
 
 ```bash
 # follow the logs
