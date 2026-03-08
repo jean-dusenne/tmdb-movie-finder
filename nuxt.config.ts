@@ -24,5 +24,44 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2025-07-15',
   elementPlus: { importStyle: 'scss', defaultLocale: 'en' },
+  // PWA module configuration: ensure manifest is found and SW auto-updates
+  pwa: {
+    manifest: {
+      name: 'TMDB Movie Finder',
+      short_name: 'MovieFinder',
+      start_url: '/',
+      display: 'standalone',
+      background_color: '#ffffff',
+      theme_color: '#1f2937',
+      description: 'Find movies using TMDB',
+      icons: [
+        { src: '/icons/icon-48.svg', sizes: '48x48', type: 'image/svg+xml' },
+        { src: '/icons/icon-96.svg', sizes: '96x96', type: 'image/svg+xml' },
+        { src: '/icons/icon-128.svg', sizes: '128x128', type: 'image/svg+xml' },
+        { src: '/icons/icon-152.svg', sizes: '152x152', type: 'image/svg+xml' },
+        { src: '/icons/icon-192.svg', sizes: '192x192', type: 'image/svg+xml' },
+        { src: '/icons/icon-256.svg', sizes: '256x256', type: 'image/svg+xml' },
+        { src: '/icons/icon-384.svg', sizes: '384x384', type: 'image/svg+xml' },
+        { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },
+      ],
+    },
+    registerType: 'autoUpdate',
+    includeAssets: ['manifest.webmanifest', 'icons/*.svg', 'icons/*.png'],
+    // Ensure the service worker precaches the root and the manifest so Workbox won't complain
+    workbox: {
+      globPatterns: ['**/*.{js,css,html,svg,png,webmanifest}'],
+      navigateFallback: '/',
+      runtimeCaching: [
+        {
+          urlPattern: '/api/.*',
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'api-cache',
+            expiration: { maxEntries: 50, maxAgeSeconds: 86400 },
+          },
+        },
+      ],
+    },
+  },
 
 })
