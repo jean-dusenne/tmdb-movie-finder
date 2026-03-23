@@ -25,6 +25,7 @@
     "@vee-validate/nuxt": "^4.15.1",
     "@vite-pwa/nuxt": "^1.1.1",
     "@vueuse/nuxt": "^14.2.1",
+    "date-fns": "^4.1.0",
     "nuxt": "^4.3.1",
     "pino": "^10.3.1",
     "pino-pretty": "^13.1.3",

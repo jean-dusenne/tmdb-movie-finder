@@ -2,37 +2,30 @@
 import type { SearchQueryParams } from '#shared/models/SearchQueryParams'
 import type { SearchMovieResponse } from '#shared/models/SearchMovieResponse'
 import type { AutocompleteFetchSuggestions } from 'element-plus'
-import type { Movie } from '#shared/models/Movie'
+import type { MixedSearchResult } from '#shared/models/MixedSearchResult'
 
 const searchUi = ref<string>('')
 const searchForApi = ref<string>('')
 
 const queryParams = computed<SearchQueryParams>(() => ({ query: searchForApi.value, include_adult: true, language: 'fr', page: 1 }))
 
-const { data, refresh } = await useFetch<SearchMovieResponse>('/api/movies', { query: queryParams, immediate: false, watch: false })
+const { data, refresh } = await useFetch<SearchMovieResponse>('/api/multi', { query: queryParams, immediate: false, watch: false })
 
 const emit = defineEmits(['movieSelected'])
 
-const debouncedFetch = useDebounceFn(async (queryString: string, cb: (data: Movie[]) => void) => {
+const debouncedFetch = useDebounceFn(async (queryString: string, cb: (data: MixedSearchResult[]) => void) => {
   searchForApi.value = queryString
   await refresh()
-  cb((data.value?.results ?? []) as Movie[])
+  cb((data.value?.results ?? []) as MixedSearchResult[])
 }, 300)
 
 const querySearchAsync: AutocompleteFetchSuggestions = (queryString, cb) => {
   searchUi.value = queryString
-  debouncedFetch(queryString, cb as (data: Movie[]) => void)
-}
-
-// Type guard to check if item is a Movie
-const isMovie = (item: unknown): item is Movie => {
-  return typeof item === 'object' && item !== null && 'id' in item && 'title' in item
+  debouncedFetch(queryString, cb as (data: MixedSearchResult[]) => void)
 }
 
 const selectMovie = (item: Record<string, unknown>) => {
-  if (isMovie(item)) {
-    emit('movieSelected', item)
-  }
+  emit('movieSelected', item)
 }
 </script>
 
@@ -47,8 +40,17 @@ const selectMovie = (item: Record<string, unknown>) => {
     >
       <template #default="{ item }">
         <div class="suggestion-item">
-          <span>{{ item.title }}</span>
-          <span class="release-date">({{ item.release_date?.slice(0, 4) }})</span>
+          <span>{{ item.title ?? item.name }}</span>
+          <div>
+            <el-tag
+              v-if="item.first_air_date"
+              class="mr-2"
+              type="primary"
+            >
+              TV
+            </el-tag>
+            <span class="release-date">({{ item.release_date ? item.release_date?.slice(0, 4) : item.first_air_date?.slice(0, 4) }})</span>
+          </div>
         </div>
       </template>
     </el-autocomplete>

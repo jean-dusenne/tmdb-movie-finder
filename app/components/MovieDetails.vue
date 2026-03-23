@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import type { Movie } from '#shared/models/Movie'
 import { CopyDocument, SuccessFilled, Star } from '@element-plus/icons-vue'
+import type { MixedSearchResult } from '#shared/models/MixedSearchResult'
 
-const { movie } = defineProps<{ movie: Movie }>()
+const { item } = defineProps<{ item: MixedSearchResult }>()
 
 const posterPath = computed(() => {
-  return movie.poster_path ? `https://image.tmdb.org/t/p/w185${movie.poster_path}` : ''
+  return item.poster_path ? `https://image.tmdb.org/t/p/w185${item.poster_path}` : ''
 })
 
 const { copy } = useClipboard()
 const isCopied = ref(false)
 
 const copyId = async () => {
-  await copy(String(movie.id))
+  await copy(String(item.id))
   isCopied.value = true
   setTimeout(() => {
     isCopied.value = false
@@ -30,30 +30,36 @@ const copyId = async () => {
       />
       <div class="movie-info">
         <h1 class="movie-title">
-          {{ movie.title }}
+          {{ item.media_type==='tv' ? item.name : item.title }}
         </h1>
         <p class="movie-original-title">
-          {{ movie.original_title }}
+          {{ item.original_title }}
         </p>
         <div class="movie-meta">
+          <el-tag
+            v-if="item.media_type==='tv'"
+            type="primary"
+          >
+            TV
+          </el-tag>
           <el-tag>
-            {{ movie.original_language.toUpperCase() }}
+            {{ item.original_language.toUpperCase() }}
           </el-tag>
           <el-tag
             type="info"
             class="rating-tag"
           >
-            <span class="rating-content"><el-icon><Star /></el-icon> {{ movie.vote_average.toFixed(1) }}</span>
+            <span class="rating-content"><el-icon><Star /></el-icon> {{ item.vote_average.toFixed(1) }}</span>
           </el-tag>
           <el-tag
-            v-if="movie.adult"
+            v-if="item.adult"
             type="danger"
           >
             18+
           </el-tag>
         </div>
         <p class="movie-overview">
-          {{ movie.overview }}
+          {{ item.overview }}
         </p>
 
         <div class="id-copy-block">
@@ -62,11 +68,11 @@ const copyId = async () => {
           </div>
           <div class="id-content">
             <span class="id-value">
-              {{ movie.id }}
+              {{ item.id }}
             </span>
             <el-popover
               :visible="isCopied"
-              :content="`${movie.title} ID (${movie.id}) copied to clipboard!`"
+              :content="`${item.title} ID (${item.id}) copied to clipboard!`"
               placement="top"
               :width="200"
             >

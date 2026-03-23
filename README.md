@@ -163,7 +163,7 @@ ssh user@nas_url 'cd /path/to/project && git clone https://<github_token>@github
 If you need to force the NAS copy to match the remote `origin/main` (warning: this will discard local changes), run the following from your local machine — replace the host/user as needed:
 
 ```bash
-ssh janbomber@*********** 'cd /volume1/docker/tmdb-movie-finder && git fetch --all && git reset --hard origin/main'
+ssh user@nas_url 'cd /volume1/docker/tmdb-movie-finder && git fetch --all && git reset --hard origin/main'
 ```
 
 Notes:

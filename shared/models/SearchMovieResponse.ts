@@ -1,7 +1,7 @@
-import type { Movie } from '#shared/models/Movie'
+import type { MixedSearchResult } from '#shared/models/MixedSearchResult'
 
 export interface SearchMovieResponse {
-  results: Movie[]
+  results: MixedSearchResult[]
   page: number
   total_pages: number
   total_results: number

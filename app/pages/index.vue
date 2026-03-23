@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import MoviesSearch from '~/components/MoviesSearch.vue'
-import type { Movie } from '#shared/models/Movie'
+import type { MixedSearchResult } from '#shared/models/MixedSearchResult'
 
 useTitle('TMDB movie finder')
-const movie = ref<Movie | null>(null)
-const setMovie = (selectedMovie: Movie) => {
-  movie.value = selectedMovie
+const item = ref<MixedSearchResult | null>(null)
+const setMovie = (selectedMovie: MixedSearchResult) => {
+  item.value = selectedMovie
 }
 </script>
 
@@ -13,8 +13,8 @@ const setMovie = (selectedMovie: Movie) => {
   <el-container>
     <MoviesSearch @movie-selected="setMovie" />
     <MovieDetails
-      v-if="movie"
-      :movie
+      v-if="item"
+      :item
     />
   </el-container>
 </template>
