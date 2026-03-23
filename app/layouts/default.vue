@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const year = new Date().getFullYear()
+</script>
+
 <template>
   <div class="common-layout">
     <el-container>
@@ -8,7 +12,22 @@
         <slot />
       </el-main>
       <el-footer class="app-footer">
-        2026 - copy id and paste it in jellyfin to update movie metadata
+        {{ year }} - Resources:
+        <a
+          href="https://jellyfin.org"
+          target="_blank"
+          rel="noopener"
+        >
+          Jellyfin
+        </a>
+        — data from
+        <a
+          href="https://www.themoviedb.org/documentation/api"
+          target="_blank"
+          rel="noopener"
+        >
+          TMDB API
+        </a>
       </el-footer>
     </el-container>
   </div>
