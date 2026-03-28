@@ -52,5 +52,6 @@
     "*.{js,ts,vue,mjs,cjs}": [
       "npx eslint --fix"
     ]
-  }
+  },
+  "version": "1.0.0"
 }
