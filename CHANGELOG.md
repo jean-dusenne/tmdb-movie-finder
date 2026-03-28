@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.0.0...v1.1.0) (2026-03-28)
+
+
+### Features
+
+* implement caching for event handler with a max age of 2 hours ([3c60f7b](https://github.com/jean-dusenne/tmdb-movie-finder/commit/3c60f7be5ba609291cdd4355544ee4f5d1d3a6e0))
+
 ## 1.0.0 (2026-03-28)
 
 
