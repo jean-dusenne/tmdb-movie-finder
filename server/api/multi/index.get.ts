@@ -9,7 +9,7 @@ const multiSearchSchema = z.object({
   primary_release_year: z.number().optional(),
 })
 
-export default defineEventHandler(async (event) => {
+export default defineCachedEventHandler(async (event) => {
   const validSearchParams = await getValidatedQuery(event, multiSearchSchema.safeParse)
 
   if (!validSearchParams.success) {
@@ -29,4 +29,4 @@ export default defineEventHandler(async (event) => {
       Authorization: `Bearer ${tmdbApi.token}`,
     },
   })
-})
+}, { maxAge: 60 * 60 * 2 })
