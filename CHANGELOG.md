@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.1.0...v1.1.1) (2026-04-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency vue to v3.5.32 ([#32](https://github.com/jean-dusenne/tmdb-movie-finder/issues/32)) ([3f25fa3](https://github.com/jean-dusenne/tmdb-movie-finder/commit/3f25fa3501884d5a8aa094f0f75f2c0d457c555a))
+
 ## [1.1.0](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.0.0...v1.1.0) (2026-03-28)
 
 
