@@ -4,19 +4,24 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        # Allow overriding the runtime image (defaults to node:24-slim for local dev)
-        RUNTIME_IMAGE: ${RUNTIME_IMAGE:-node:24-slim}
     image: tmdb-movie-finder:local
-    env_file:
-      - .env
     ports:
       - "8989:8989"
     restart: always
+    environment:
+      - NUXT_TMDB_API_BASE_URL=${NUXT_TMDB_API_BASE_URL}
+      - NUXT_TMDB_API_TOKEN=${NUXT_TMDB_API_TOKEN}
+      - NUXT_TMDB_API_VERSION=${NUXT_TMDB_API_VERSION}
     healthcheck:
       # Use a small Node one-liner for the healthcheck. This works with node:24-slim (node available
       # in PATH). For other runtimes adapt the check accordingly.
-      test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:8989/api/health', res => { if (res.statusCode === 200) process.exit(0); else process.exit(1); }).on('error', () => process.exit(1));"]
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "require('http').get('http://127.0.0.1:8989/api/health', res => { if (res.statusCode === 200) process.exit(0); else process.exit(1); }).on('error', () => process.exit(1));",
+        ]
       interval: 30s
       timeout: 10s
       retries: 5
