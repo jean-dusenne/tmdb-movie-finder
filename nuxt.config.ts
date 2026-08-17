@@ -1,7 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
-    '@nuxtjs/eslint-module',
     '@nuxt/test-utils',
     '@element-plus/nuxt',
     '@pinia/nuxt',
@@ -12,9 +11,7 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
   ],
   devtools: { enabled: true },
-  css: [
-    '~/assets/scss/index.scss',
-  ],
+  css: ['~/assets/scss/index.scss'],
   runtimeConfig: {
     tmdbApi: {
       token: '',
@@ -63,5 +60,4 @@ export default defineNuxtConfig({
       ],
     },
   },
-
 })
