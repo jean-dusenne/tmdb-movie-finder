@@ -5,7 +5,9 @@ import type { MixedSearchResult } from '#shared/models/MixedSearchResult'
 const { item } = defineProps<{ item: MixedSearchResult }>()
 
 const posterPath = computed(() => {
-  return item.poster_path ? `https://image.tmdb.org/t/p/w185${item.poster_path}` : ''
+  return item.poster_path
+    ? `https://image.tmdb.org/t/p/w185${item.poster_path}`
+    : ''
 })
 
 const { copy } = useClipboard()
@@ -30,26 +32,27 @@ const copyId = async () => {
       />
       <div class="movie-info">
         <h1 class="movie-title">
-          {{ item.media_type==='tv' ? item.name : item.title }}
+          {{ item.media_type === "tv" ? item.name : item.title }}
         </h1>
         <p class="movie-original-title">
           {{ item.original_title }}
         </p>
         <div class="movie-meta">
           <el-tag
-            v-if="item.media_type==='tv'"
+            v-if="item.media_type === 'tv'"
             type="primary"
           >
             TV
           </el-tag>
           <el-tag>
-            {{ item.original_language.toUpperCase() }}
+            {{ item.original_language?.toUpperCase() }}
           </el-tag>
           <el-tag
             type="info"
             class="rating-tag"
           >
-            <span class="rating-content"><el-icon><Star /></el-icon> {{ item.vote_average.toFixed(1) }}</span>
+            <span class="rating-content"><el-icon><Star /></el-icon>
+              {{ item.vote_average.toFixed(1) }}</span>
           </el-tag>
           <el-tag
             v-if="item.adult"
