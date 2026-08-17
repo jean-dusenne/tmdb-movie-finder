@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.1.2](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.1.1...v1.1.2) (2026-08-17)
+
+
+### Bug Fixes
+
+* add timeZone to date formatting and improve tooltip for movie names in MoviesSearch component ([0c96133](https://github.com/jean-dusenne/tmdb-movie-finder/commit/0c961330f8eac1e37ac9d28fc7fbd7082375efac))
+* enhance movie name display and improve meta layout in MoviesSearch component ([37dbdf2](https://github.com/jean-dusenne/tmdb-movie-finder/commit/37dbdf2b4168a90337300b654bec52e655e24450))
+* handle potential null value for vote_average in MovieDetails component ([3d341b4](https://github.com/jean-dusenne/tmdb-movie-finder/commit/3d341b46e6bd4f527695b14019515ba87764afd0))
+* improve date formatting in MoviesSearch component ([4d8e38b](https://github.com/jean-dusenne/tmdb-movie-finder/commit/4d8e38b9c7c0b5fcbe4722d07d588acf4443f5c0))
+* improve formatting and readability in MovieDetails component ([7eaceab](https://github.com/jean-dusenne/tmdb-movie-finder/commit/7eaceab2af066c15e9adfab6b88bb740a6749c57))
+
 ## [1.1.1](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.1.0...v1.1.1) (2026-04-06)
 
 
