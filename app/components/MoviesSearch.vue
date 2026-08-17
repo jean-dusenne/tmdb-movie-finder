@@ -32,7 +32,7 @@ const formatDate = (item: Record<string, unknown>) => {
   const dateString = (item.release_date ?? item.first_air_date) as string | undefined
   if (!dateString) return '-'
   const date = new Date(dateString)
-  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })
 }
 </script>
 
@@ -47,7 +47,10 @@ const formatDate = (item: Record<string, unknown>) => {
     >
       <template #default="{ item }">
         <div class="suggestion-item">
-          <span class="movie-name">{{ item.title ?? item.name }}</span>
+          <span
+            class="movie-name"
+            :title="(item.title ?? item.name) as string"
+          >{{ item.title ?? item.name }}</span>
           <div class="meta">
             <el-tag
               v-if="item.first_air_date"
