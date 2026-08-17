@@ -47,8 +47,8 @@ const formatDate = (item: Record<string, unknown>) => {
     >
       <template #default="{ item }">
         <div class="suggestion-item">
-          <span>{{ item.title ?? item.name }}</span>
-          <div>
+          <span class="movie-name">{{ item.title ?? item.name }}</span>
+          <div class="meta">
             <el-tag
               v-if="item.first_air_date"
               class="mr-2"
@@ -79,6 +79,19 @@ const formatDate = (item: Record<string, unknown>) => {
   gap: 1rem;
 }
 
+.movie-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
 .release-date {
   font-size: 0.85rem;
   color: #909399;
@@ -86,10 +99,7 @@ const formatDate = (item: Record<string, unknown>) => {
 }
 
 @media (max-width: 768px) {
-
   .suggestion-item {
-    flex-direction: column;
-    align-items: flex-start;
     gap: 0.5rem;
   }
 
