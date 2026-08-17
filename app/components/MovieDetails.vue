@@ -52,7 +52,7 @@ const copyId = async () => {
             class="rating-tag"
           >
             <span class="rating-content"><el-icon><Star /></el-icon>
-              {{ item.vote_average.toFixed(1) }}</span>
+              {{ item.vote_average?.toFixed(1) }}</span>
           </el-tag>
           <el-tag
             v-if="item.adult"
