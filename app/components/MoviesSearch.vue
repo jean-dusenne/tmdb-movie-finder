@@ -27,6 +27,13 @@ const querySearchAsync: AutocompleteFetchSuggestions = (queryString, cb) => {
 const selectMovie = (item: Record<string, unknown>) => {
   emit('movieSelected', item)
 }
+
+const formatDate = (item: Record<string, unknown>) => {
+  const dateString = (item.release_date ?? item.first_air_date) as string | undefined
+  if (!dateString) return '-'
+  const date = new Date(dateString)
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+}
 </script>
 
 <template>
@@ -49,7 +56,7 @@ const selectMovie = (item: Record<string, unknown>) => {
             >
               TV
             </el-tag>
-            <span class="release-date">({{ item.release_date ? item.release_date?.slice(0, 4) : item.first_air_date?.slice(0, 4) }})</span>
+            <span class="release-date">({{ formatDate(item) }})</span>
           </div>
         </div>
       </template>
