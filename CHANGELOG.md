@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.1.2...v1.2.0) (2026-08-18)
+
+
+### Features
+
+* add translations to site ([a749eaf](https://github.com/jean-dusenne/tmdb-movie-finder/commit/a749eaf6f184a6e7a802fe37c22cd2cb6ecdd370))
+
+
+### Bug Fixes
+
+* add halo on title ([c380ecb](https://github.com/jean-dusenne/tmdb-movie-finder/commit/c380ecb6b2441893ddb003b22ca13cb68f3ebf8d))
+
 ## [1.1.2](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.1.1...v1.1.2) (2026-08-17)
 
 
