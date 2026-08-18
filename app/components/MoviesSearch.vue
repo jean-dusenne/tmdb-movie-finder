@@ -7,7 +7,9 @@ import type { MixedSearchResult } from '#shared/models/MixedSearchResult'
 const searchUi = ref<string>('')
 const searchForApi = ref<string>('')
 
-const queryParams = computed<SearchQueryParams>(() => ({ query: searchForApi.value, include_adult: true, language: 'fr', page: 1 }))
+const { t, localeProperties } = useI18n()
+
+const queryParams = computed<SearchQueryParams>(() => ({ query: searchForApi.value, include_adult: true, language: localeProperties.value.language, page: 1 }))
 
 const { data, refresh } = await useFetch<SearchMovieResponse>('/api/multi', { query: queryParams, immediate: false, watch: false })
 
@@ -32,7 +34,7 @@ const formatDate = (item: Record<string, unknown>) => {
   const dateString = (item.release_date ?? item.first_air_date) as string | undefined
   if (!dateString) return '-'
   const date = new Date(dateString)
-  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })
+  return date.toLocaleDateString(localeProperties.value.language, { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })
 }
 </script>
 
@@ -42,7 +44,7 @@ const formatDate = (item: Record<string, unknown>) => {
       v-model="searchUi"
       :trigger-on-focus="false"
       :fetch-suggestions="querySearchAsync"
-      placeholder="Search for a movie..."
+      :placeholder="t('search_for_a_movie')"
       @select="selectMovie"
     >
       <template #default="{ item }">
@@ -57,7 +59,7 @@ const formatDate = (item: Record<string, unknown>) => {
               class="mr-2"
               type="primary"
             >
-              TV
+              {{ t('tv') }}
             </el-tag>
             <span class="release-date">({{ formatDate(item) }})</span>
           </div>

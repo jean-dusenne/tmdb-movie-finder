@@ -1,0 +1,9 @@
+{
+    "application_title": "Jellyfin Movie Finder",
+    "search_for_a_movie": "Rechercher un film ou une série TV",
+    "id_copied_to_clipboard": "L'ID de {title} {id} a été copié dans le presse-papiers !",
+    "resources": "Ressources:",
+    "tv": "TV",
+    "adult_18_plus": "18+",
+    "id_label": "ID"
+}

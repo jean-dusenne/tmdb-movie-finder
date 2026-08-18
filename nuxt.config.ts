@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@unocss/nuxt',
     '@nuxt/eslint',
+    '@nuxtjs/i18n',
   ],
   devtools: { enabled: true },
   css: ['~/assets/scss/index.scss'],
@@ -20,7 +21,14 @@ export default defineNuxtConfig({
     },
   },
   compatibilityDate: '2025-07-15',
-  elementPlus: { importStyle: 'scss', defaultLocale: 'en' },
+  elementPlus: { importStyle: 'scss', defaultLocale: 'fr' },
+  i18n: {
+    locales: [
+      { code: 'en', language: 'en-US', file: 'en.json' },
+      { code: 'fr', language: 'fr-FR', file: 'fr.json' },
+    ],
+    defaultLocale: 'fr',
+  },
   // PWA module configuration: ensure manifest is found and SW auto-updates
   pwa: {
     manifest: {

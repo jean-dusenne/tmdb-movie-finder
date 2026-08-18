@@ -1,0 +1,9 @@
+{
+    "application_title": "TMDB Movie Finder",
+    "search_for_a_movie": "Search for a movie or TV show",
+    "id_copied_to_clipboard": "{title} ID ({id}) copied to clipboard!",
+    "resources": "Resources:",
+    "tv": "TV",
+    "adult_18_plus": "18+",
+    "id_label": "ID"
+}

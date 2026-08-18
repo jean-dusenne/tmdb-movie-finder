@@ -2,7 +2,9 @@
 import MoviesSearch from '~/components/MoviesSearch.vue'
 import type { MixedSearchResult } from '#shared/models/MixedSearchResult'
 
-useTitle('TMDB movie finder')
+const { t } = useI18n()
+useTitle(computed(() => t('application_title')))
+
 const item = ref<MixedSearchResult | null>(null)
 const setMovie = (selectedMovie: MixedSearchResult) => {
   item.value = selectedMovie

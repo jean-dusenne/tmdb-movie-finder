@@ -4,6 +4,8 @@ import type { MixedSearchResult } from '#shared/models/MixedSearchResult'
 
 const { item } = defineProps<{ item: MixedSearchResult }>()
 
+const { t } = useI18n()
+
 const posterPath = computed(() => {
   return item.poster_path
     ? `https://image.tmdb.org/t/p/w185${item.poster_path}`
@@ -42,7 +44,7 @@ const copyId = async () => {
             v-if="item.media_type === 'tv'"
             type="primary"
           >
-            TV
+            {{ t('tv') }}
           </el-tag>
           <el-tag>
             {{ item.original_language?.toUpperCase() }}
@@ -58,7 +60,7 @@ const copyId = async () => {
             v-if="item.adult"
             type="danger"
           >
-            18+
+            {{ t('adult_18_plus') }}
           </el-tag>
         </div>
         <p class="movie-overview">
@@ -67,7 +69,7 @@ const copyId = async () => {
 
         <div class="id-copy-block">
           <div class="id-label">
-            ID
+            {{ t('id_label') }}
           </div>
           <div class="id-content">
             <span class="id-value">
@@ -75,7 +77,7 @@ const copyId = async () => {
             </span>
             <el-popover
               :visible="isCopied"
-              :content="`${item.title} ID (${item.id}) copied to clipboard!`"
+              :content="t('id_copied_to_clipboard', { title: item.title ?? item.original_name, id: item.id })"
               placement="top"
               :width="200"
             >
@@ -175,6 +177,7 @@ const copyId = async () => {
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 4;
+  line-clamp: 4;
   -webkit-box-orient: vertical;
 }
 
