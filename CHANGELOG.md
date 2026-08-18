@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.2.0...v1.2.1) (2026-08-18)
+
+
+### Bug Fixes
+
+* add viewport for mobile ([d1b2fc4](https://github.com/jean-dusenne/tmdb-movie-finder/commit/d1b2fc45e1f855918e40b9e25ff406b2ef56d111))
+
 ## [1.2.0](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.1.2...v1.2.0) (2026-08-18)
 
 
