@@ -76,6 +76,10 @@ const formatDate = (item: Record<string, unknown>) => {
   margin: 0 auto;
 }
 
+.movies-search :deep(.el-input__inner) {
+  font-size: 16px;
+}
+
 .suggestion-item {
   display: flex;
   justify-content: space-between;
