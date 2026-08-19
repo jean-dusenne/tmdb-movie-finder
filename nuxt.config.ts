@@ -3,8 +3,6 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/test-utils',
     '@element-plus/nuxt',
-    '@pinia/nuxt',
-    '@vee-validate/nuxt',
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
     '@unocss/nuxt',
