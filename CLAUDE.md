@@ -40,7 +40,7 @@ Configured via `runtimeConfig.tmdbApi` in `nuxt.config.ts`, populated from env v
 
 **Directory layout is Nuxt 4's `app/`-based structure** (not the old Nuxt 3 root layout): pages/components/layouts live under `app/`, not the project root.
 
-- `app/` — Vue frontend (`app.vue`, `pages/`, `layouts/`, `components/`, `assets/scss/`)
+- `app/` — Vue frontend (`app.vue`, `pages/`, `layouts/`, `components/`, `assets/scss/`, `plugins/`)
 - `server/api/` — Nuxt server (Nitro) routes; file-based routing, `index.get.ts` = GET handler
 - `server/utils/logger.ts` — shared pino logger (pretty-printed outside production, level from `LOG_LEVEL`)
 - `server/middleware/logger.ts` — logs every `/api/*` request (except `/api/health`) with method/url/status/duration on response finish
@@ -52,6 +52,12 @@ Configured via `runtimeConfig.tmdbApi` in `nuxt.config.ts`, populated from env v
 **`server/api/multi/index.get.ts`**: validates query params with a Zod schema (`getValidatedQuery` + `safeParse`), returns a structured 400 with per-field errors on failure, and otherwise proxies to TMDB's `/search/multi` endpoint with the server-side bearer token. Wrapped in `defineCachedEventHandler` (2h TTL) — Nitro's built-in response cache, so identical query params return a cached response.
 
 **Path aliases**: `#server/...` and `#shared/...` are Nuxt 4 auto-generated aliases (see usage in `server/api/multi/index.get.ts` and `shared/models/*`) — use these rather than relative paths when importing across `server/`/`shared/`.
+
+**i18n**: `@nuxtjs/i18n`, configured in `nuxt.config.ts` with `en`/`fr` locales backed by `i18n/locales/{en,fr}.json`; `fr` is the default locale (also the Element Plus `defaultLocale`). Components pull strings via `useI18n()`'s `t()` (see `app/layouts/default.vue`).
+
+**PWA**: `@vite-pwa/nuxt`, configured in `nuxt.config.ts` (`pwa` key) — manifest/icons under `public/icons/` + `public/manifest.webmanifest`, `registerType: 'autoUpdate'`, and a Workbox `NetworkFirst` runtime-caching rule for `/api/.*`.
+
+**Layout**: `app/layouts/default.vue` wraps pages in an Element Plus `el-container` (header/main/footer). On mobile the footer is `position: fixed` (see `index.scss`); `app/plugins/sticky-footer.client.ts` mirrors the footer's live height into a `--footer-height` CSS custom property (via `ResizeObserver`) so `.app-main` can pad around it.
 
 ## Conventions
 
