@@ -11,7 +11,28 @@ const { t, localeProperties } = useI18n()
 
 const queryParams = computed<SearchQueryParams>(() => ({ query: searchForApi.value, include_adult: true, language: localeProperties.value.language, page: 1 }))
 
-const { data, refresh } = await useFetch<SearchMovieResponse>('/api/multi', { query: queryParams, immediate: false, watch: false })
+const notify = (type: 'warning' | 'error', message: string) => {
+  ElNotification({
+    title: t(type),
+    message,
+    type,
+    position: 'bottom-right',
+  })
+}
+
+const { data, refresh } = await useFetch<SearchMovieResponse>('/api/multi', {
+  query: queryParams,
+  immediate: false,
+  watch: false,
+  onResponse({ response }) {
+    if (response.ok && response._data?.total_results === 0) {
+      notify('warning', t('no_results_found_for', { query: searchForApi.value }))
+    }
+  },
+  onResponseError() {
+    notify('error', t('an_error_occured'))
+  },
+})
 
 const emit = defineEmits(['movieSelected'])
 

@@ -5,5 +5,9 @@
     "resources": "Ressources:",
     "tv": "TV",
     "adult_18_plus": "18+",
-    "id_label": "ID"
+    "id_label": "ID",
+    "warning": "Attention",
+    "no_results_found_for": "Aucun résultat trouvé pour {query}",
+    "error": "Erreur",
+    "an_error_occured": "Une erreur est survenue"
 }
