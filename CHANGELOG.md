@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.2.1...v1.3.0) (2026-08-20)
+
+
+### Features
+
+* add notifications for search results and update localization strings ([661b39c](https://github.com/jean-dusenne/tmdb-movie-finder/commit/661b39c66197bcfcd229f41dc0a1713a91bc9fa9))
+
 ## [1.2.1](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.2.0...v1.2.1) (2026-08-18)
 
 
