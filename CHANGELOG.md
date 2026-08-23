@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.1](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.4.0...v1.4.1) (2026-08-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency vue-router to v5 ([#77](https://github.com/jean-dusenne/tmdb-movie-finder/issues/77)) ([d64b1d5](https://github.com/jean-dusenne/tmdb-movie-finder/commit/d64b1d59b09bc560ebbb621965ad3efb80df646d))
+* filter multi search on tv and movies ([#80](https://github.com/jean-dusenne/tmdb-movie-finder/issues/80)) ([323f390](https://github.com/jean-dusenne/tmdb-movie-finder/commit/323f3902fa2032805b5d6eb651d1081b471961fb))
+
 ## [1.4.0](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.3.0...v1.4.0) (2026-08-23)
 
 
