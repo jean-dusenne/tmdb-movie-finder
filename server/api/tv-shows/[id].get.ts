@@ -1,5 +1,5 @@
 import { isDevelopment } from 'std-env'
-import z from 'zod'
+import { z } from 'zod'
 import type { TVSeriesDetails } from '#shared/models/TvShowDetails'
 
 const tvShowIdSchema = z.string().regex(/^\d+$/, 'id must be numeric')
