@@ -5,8 +5,8 @@ definePageMeta({
   name: 'tv-show-details',
   i18n: {
     paths: {
-      'en-US': '/tv-show/[:id]/[:title]',
-      'fr-FR': '/serie/[:id]/[:title]',
+      'en-US': '/tv-show/[id]/[title]',
+      'fr-FR': '/serie/[id]/[title]',
     },
   },
 })

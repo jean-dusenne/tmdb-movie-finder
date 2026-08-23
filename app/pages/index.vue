@@ -7,7 +7,6 @@ useTitle(computed(() => t('application_title')))
 const router = useRouter()
 const localePath = useLocalePath()
 
-const item = ref<MixedSearchResult | null>(null)
 const setMovie = async (selectedMovie: MixedSearchResult) => {
   const isMovie = selectedMovie.media_type === 'movie'
 
@@ -18,16 +17,11 @@ const setMovie = async (selectedMovie: MixedSearchResult) => {
       title: slugify(selectedMovie.title ?? selectedMovie.name ?? ''),
     },
   }))
-  item.value = selectedMovie
 }
 </script>
 
 <template>
   <el-container>
     <MoviesSearch @movie-selected="setMovie" />
-    <MovieDetails
-      v-if="item"
-      :item
-    />
   </el-container>
 </template>

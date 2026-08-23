@@ -5,8 +5,8 @@ definePageMeta({
   name: 'movie-details',
   i18n: {
     paths: {
-      'en-US': '/movie/[:id]/[:title]',
-      'fr-FR': '/film/[:id]/[:title]',
+      'en-US': '/movie/[id]/[title]',
+      'fr-FR': '/film/[id]/[title]',
     },
   },
 })

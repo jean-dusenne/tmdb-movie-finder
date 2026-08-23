@@ -1,14 +1,11 @@
+import type { Genre, ProductionCompany, ProductionCountry, SpokenLanguage } from '#shared/models/common'
+
 interface CreatedBy {
   id: number
   credit_id: string
   name: string
   gender: number
   profile_path: string | null
-}
-
-interface Genre {
-  id: number
-  name: string
 }
 
 interface Episode {
@@ -33,18 +30,6 @@ interface Network {
   origin_country: string
 }
 
-interface ProductionCompany {
-  id: number
-  logo_path: string | null
-  name: string
-  origin_country: string
-}
-
-interface ProductionCountry {
-  iso_3166_1: string
-  name: string
-}
-
 interface Season {
   air_date: string | null
   episode_count: number
@@ -54,12 +39,6 @@ interface Season {
   poster_path: string | null
   season_number: number
   vote_average: number
-}
-
-interface SpokenLanguage {
-  english_name: string
-  iso_639_1: string
-  name: string
 }
 
 export interface TVSeriesDetails {
