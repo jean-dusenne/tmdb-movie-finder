@@ -1,15 +1,15 @@
-<script setup lang="ts">
-import type { MovieDetails } from '#shared/models/MovieDetails'
+<script lang="ts" setup>
+import type { TVSeriesDetails } from '#shared/models/TvShowDetails'
 
-const { item } = defineProps<{ item: MovieDetails }>()
+const { item } = defineProps<{ item: TVSeriesDetails }>()
 </script>
 
 <template>
   <MediaDetails
     :id="item.id"
-    media-type="movie"
-    :title="item.title"
-    :original-title="item.original_title"
+    media-type="tv"
+    :title="item.name"
+    :original-title="item.original_name"
     :overview="item.overview"
     :poster-path="item.poster_path"
     :original-language="item.original_language"

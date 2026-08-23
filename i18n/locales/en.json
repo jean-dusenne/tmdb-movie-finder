@@ -4,10 +4,15 @@
     "id_copied_to_clipboard": "{title} ID ({id}) copied to clipboard!",
     "resources": "Resources:",
     "tv": "TV",
+    "movie": "Movie",
     "adult_18_plus": "18+",
     "id_label": "ID",
+    "back": "Back",
     "warning": "Warning",
     "no_results_found_for": "No results found for {query}",
     "error": "Error",
-    "an_error_occured": "An error occurred"
+    "an_error_occured": "An error occurred",
+    "media_not_found": "Not found",
+    "media_not_found_subtitle": "This movie or TV show doesn't exist or is no longer available.",
+    "media_error_subtitle": "Something went wrong while loading this page. Please try again later."
 }

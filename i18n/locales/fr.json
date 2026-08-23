@@ -4,10 +4,15 @@
     "id_copied_to_clipboard": "L'ID de {title} {id} a été copié dans le presse-papiers !",
     "resources": "Ressources:",
     "tv": "TV",
+    "movie": "Film",
     "adult_18_plus": "18+",
     "id_label": "ID",
+    "back": "Retour",
     "warning": "Attention",
     "no_results_found_for": "Aucun résultat trouvé pour {query}",
     "error": "Erreur",
-    "an_error_occured": "Une erreur est survenue"
+    "an_error_occured": "Une erreur est survenue",
+    "media_not_found": "Introuvable",
+    "media_not_found_subtitle": "Ce film ou cette série n'existe pas ou n'est plus disponible.",
+    "media_error_subtitle": "Une erreur est survenue lors du chargement de cette page. Réessaie plus tard."
 }

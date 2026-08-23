@@ -1,3 +1,4 @@
+import { isDevelopment } from 'std-env'
 import { z } from 'zod'
 import { logger } from '#server/utils/logger'
 
@@ -29,4 +30,4 @@ export default defineCachedEventHandler(async (event) => {
       Authorization: `Bearer ${tmdbApi.token}`,
     },
   })
-}, { maxAge: 60 * 60 * 2 })
+}, { maxAge: isDevelopment ? 1 : 60 * 60 * 24 })
