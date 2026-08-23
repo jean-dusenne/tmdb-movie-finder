@@ -1,8 +1,8 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { CopyDocument, SuccessFilled, Star } from '@element-plus/icons-vue'
-import type { MovieDetails } from '#shared/models/MovieDetails'
+import type { TVSeriesDetails } from '#shared/models/TvShowDetails'
 
-const { item } = defineProps<{ item: MovieDetails }>()
+const { item } = defineProps<{ item: TVSeriesDetails }>()
 
 const { t } = useI18n()
 
@@ -34,10 +34,10 @@ const copyId = async () => {
       />
       <div class="movie-info">
         <h1 class="movie-title">
-          {{ item.title }}
+          {{ item.name }}
         </h1>
         <p class="movie-original-title">
-          {{ item.original_title }}
+          {{ item.original_name }}
         </p>
         <div class="movie-meta">
           <el-tag>
@@ -71,7 +71,7 @@ const copyId = async () => {
             </span>
             <el-popover
               :visible="isCopied"
-              :content="t('id_copied_to_clipboard', { title: item.title ?? item.original_title, id: item.id })"
+              :content="t('id_copied_to_clipboard', { title: item.name ?? item.original_name, id: item.id })"
               placement="top"
               :width="200"
             >

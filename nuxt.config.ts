@@ -29,10 +29,10 @@ export default defineNuxtConfig({
   elementPlus: { importStyle: 'scss', defaultLocale: 'fr' },
   i18n: {
     locales: [
-      { code: 'en', language: 'en-US', file: 'en.json' },
-      { code: 'fr', language: 'fr-FR', file: 'fr.json' },
+      { code: 'en-US', language: 'en-US', file: 'en.json' },
+      { code: 'fr-FR', language: 'fr-FR', file: 'fr.json' },
     ],
-    defaultLocale: 'fr',
+    defaultLocale: 'fr-FR',
   },
   // PWA module configuration: ensure manifest is found and SW auto-updates
   pwa: {
