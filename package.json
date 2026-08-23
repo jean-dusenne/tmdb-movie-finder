@@ -52,7 +52,7 @@
       "npx eslint --fix"
     ]
   },
-  "version": "1.4.1",
+  "version": "1.4.2",
   "allowScripts": {
     "vue-demi@0.14.10": true,
     "unrs-resolver@1.12.2": true,

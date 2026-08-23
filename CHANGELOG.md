@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.2](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.4.1...v1.4.2) (2026-08-23)
+
+
+### Bug Fixes
+
+* docker build ko ([d4024f8](https://github.com/jean-dusenne/tmdb-movie-finder/commit/d4024f801fdd8ba586f369912d8f70cee7dd3663))
+
 ## [1.4.1](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.4.0...v1.4.1) (2026-08-23)
 
 
