@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.4.0](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.3.0...v1.4.0) (2026-08-23)
+
+
+### Features
+
+* add pages for movie and tv show details ([#78](https://github.com/jean-dusenne/tmdb-movie-finder/issues/78)) ([c897dc8](https://github.com/jean-dusenne/tmdb-movie-finder/commit/c897dc80e42b0e685fb6204de99a02e151a62438))
+
+
+### Bug Fixes
+
+* **deps:** regenerate lockfile so @vue/* packages match vue 3.5.41 ([#76](https://github.com/jean-dusenne/tmdb-movie-finder/issues/76)) ([86aab22](https://github.com/jean-dusenne/tmdb-movie-finder/commit/86aab2223be399433a6b1995fcfd924bee1e96d8))
+* **deps:** update dependency @vueuse/nuxt to ^14.4.0 ([#45](https://github.com/jean-dusenne/tmdb-movie-finder/issues/45)) ([181551a](https://github.com/jean-dusenne/tmdb-movie-finder/commit/181551a36e29f3e0ae9a1d44f61cc593161b0b68))
+* **deps:** update dependency vue to v3.5.41 ([86aab22](https://github.com/jean-dusenne/tmdb-movie-finder/commit/86aab2223be399433a6b1995fcfd924bee1e96d8))
+* **deps:** update dependency zod to ^4.4.3 ([#74](https://github.com/jean-dusenne/tmdb-movie-finder/issues/74)) ([4f39c56](https://github.com/jean-dusenne/tmdb-movie-finder/commit/4f39c56c2866a52ae1e4aa9d785a64f3de05c5af))
+
 ## [1.3.0](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.2.1...v1.3.0) (2026-08-20)
 
 
