@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import type { SearchQueryParams } from '#shared/models/SearchQueryParams'
-import type { SearchMovieResponse } from '#shared/models/SearchMovieResponse'
+import type { SearchMultiResponse, MovieOrTvResult } from '#shared/models/Multi'
 import type { AutocompleteFetchSuggestions } from 'element-plus'
-import type { MixedSearchResult } from '#shared/models/MixedSearchResult'
 
 const searchUi = ref<string>('')
 const searchForApi = ref<string>('')
 
 const { t, localeProperties } = useI18n()
 
-const queryParams = computed<SearchQueryParams>(() => ({ query: searchForApi.value, include_adult: true, language: localeProperties.value.language, page: 1 }))
+const queryParams = computed<SearchQueryParams>(() => ({ query: searchForApi.value, language: localeProperties.value.language }))
 
 const notify = (type: 'warning' | 'error', message: string) => {
   ElNotification({
@@ -20,7 +19,7 @@ const notify = (type: 'warning' | 'error', message: string) => {
   })
 }
 
-const { data, refresh } = await useFetch<SearchMovieResponse>('/api/multi', {
+const { data, refresh } = await useFetch<SearchMultiResponse>('/api/multi', {
   query: queryParams,
   immediate: false,
   watch: false,
@@ -36,15 +35,15 @@ const { data, refresh } = await useFetch<SearchMovieResponse>('/api/multi', {
 
 const emit = defineEmits(['movieSelected'])
 
-const debouncedFetch = useDebounceFn(async (queryString: string, cb: (data: MixedSearchResult[]) => void) => {
+const debouncedFetch = useDebounceFn(async (queryString: string, cb: (data: MovieOrTvResult[]) => void) => {
   searchForApi.value = queryString
   await refresh()
-  cb((data.value?.results ?? []) as MixedSearchResult[])
+  cb((data.value?.results ?? []) as MovieOrTvResult[])
 }, 300)
 
 const querySearchAsync: AutocompleteFetchSuggestions = (queryString, cb) => {
   searchUi.value = queryString
-  debouncedFetch(queryString, cb as (data: MixedSearchResult[]) => void)
+  debouncedFetch(queryString, cb as (data: MovieOrTvResult[]) => void)
 }
 
 const selectMovie = (item: Record<string, unknown>) => {
