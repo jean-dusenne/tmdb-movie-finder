@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A Nuxt 4 app that searches TMDB (The Movie Database) for movies/TV shows via an autocomplete UI and displays details for the selected result. The frontend never calls TMDB directly — it goes through a Nuxt server route that injects the TMDB bearer token server-side.
+A Nuxt 4 app that searches TMDB (The Movie Database) for movies/TV shows via an autocomplete UI, then navigates to a dedicated detail page for the selected result. The frontend never calls TMDB directly — it goes through Nuxt server routes that inject the TMDB bearer token server-side.
 
 ## Commands
 
@@ -40,20 +40,25 @@ Configured via `runtimeConfig.tmdbApi` in `nuxt.config.ts`, populated from env v
 
 **Directory layout is Nuxt 4's `app/`-based structure** (not the old Nuxt 3 root layout): pages/components/layouts live under `app/`, not the project root.
 
-- `app/` — Vue frontend (`app.vue`, `pages/`, `layouts/`, `components/`, `assets/scss/`, `plugins/`)
-- `server/api/` — Nuxt server (Nitro) routes; file-based routing, `index.get.ts` = GET handler
+- `app/` — Vue frontend (`app.vue`, `pages/`, `layouts/`, `components/`, `composables/`, `utils/`, `assets/scss/`, `plugins/`)
+- `server/api/` — Nuxt server (Nitro) routes; file-based routing, `index.get.ts` = GET handler, `[id].get.ts` = dynamic param handler
 - `server/utils/logger.ts` — shared pino logger (pretty-printed outside production, level from `LOG_LEVEL`)
 - `server/middleware/logger.ts` — logs every `/api/*` request (except `/api/health`) with method/url/status/duration on response finish
-- `shared/models/` — TypeScript interfaces shared between client and server (Nuxt 4 `shared/` alias, imported as `#shared/models/...`), e.g. `MixedSearchResult`, `SearchMovieResponse`, `SearchQueryParams`
-- `test/unit/` — plain node-env vitest tests; `test/nuxt/` — vitest tests that boot the Nuxt runtime (`environment: 'nuxt'`, happy-dom), using `mountSuspended` from `@nuxt/test-utils/runtime` for component mounts. These are separate Vitest *projects* defined in `vitest.config.ts`, each with its own `include` glob — put new tests in the matching directory or add a new project.
+- `shared/models/` — TypeScript interfaces shared between client and server (Nuxt 4 `shared/` alias, imported as `#shared/models/...`), e.g. `MixedSearchResult`, `SearchMovieResponse`, `SearchQueryParams`, `MovieDetails`, `TvShowDetails` (exports `TVSeriesDetails`), and `common.ts` for cross-model shapes (`Genre`, `ProductionCompany`, `ProductionCountry`, `SpokenLanguage`)
 
-**Search flow**: `MoviesSearch.vue` drives an Element Plus `el-autocomplete`. User input is debounced (`useDebounceFn`, 300ms) before triggering `useFetch('/api/multi', ...)` with `immediate: false, watch: false` — the fetch is only (re)triggered manually via `refresh()` inside the debounced callback, not reactively. Selecting a suggestion emits `movieSelected`, which `pages/index.vue` uses to set the item passed to `MovieDetails.vue`.
+**Search flow**: `MoviesSearch.vue` drives an Element Plus `el-autocomplete`. User input is debounced (`useDebounceFn`, 300ms) before triggering `useFetch('/api/multi', ...)` with `immediate: false, watch: false` — the fetch is only (re)triggered manually via `refresh()` inside the debounced callback, not reactively. Selecting a suggestion emits `movieSelected` with the raw `MixedSearchResult`.
 
 **`server/api/multi/index.get.ts`**: validates query params with a Zod schema (`getValidatedQuery` + `safeParse`), returns a structured 400 with per-field errors on failure, and otherwise proxies to TMDB's `/search/multi` endpoint with the server-side bearer token. Wrapped in `defineCachedEventHandler` (2h TTL) — Nitro's built-in response cache, so identical query params return a cached response.
 
+**Detail page flow**: `pages/index.vue`'s `setMovie` handler (bound to `MoviesSearch`'s `movieSelected` event) slugifies the title (`app/utils/slugify.ts` — NFD-normalizes, strips diacritics, lowercases, collapses non-alphanumerics into hyphens; falls back to the numeric id for titles with no latin/alphanumeric characters, since a slug that reduces to `''` is rejected by vue-router as a missing required param) and `router.push`es to a **named route** (`movie-details` or `tv-show-details`) via `useLocalePath()`, passing `id`/`title` as route params.
+- Both detail routes are declared as `pages/movie/index.vue` and `pages/tv-show/index.vue`, but their actual URLs come from `@nuxtjs/i18n`'s per-locale custom `paths` in `definePageMeta` (e.g. `/movie/[id]/[title]` in `en-US`, `/film/[id]/[title]` in `fr-FR`) — the file location does not reflect the URL shape, the `i18n.paths` config does.
+- Each detail page awaits `useApi<T>('/api/{movies,tv-shows}/${id}')` (`immediate: true`) and, on a response error, forwards TMDB's status code to the page response via `setResponseStatus(useRequestEvent(), response.status)` for correct SSR status codes (e.g. 404).
+- `app/composables/useApi.ts` wraps Nuxt's `createUseFetch` to inject a `tmdb-language` header from the current `useI18n().locale` on every request — the server endpoints read this header (`getHeader(event, 'tmdb-language')`) and forward it to TMDB as the `language` query param, and `defineCachedEventHandler`'s `varies: ['tmdb-language']` keys the cache by it.
+- Rendering: `MovieDetails.vue` and `TvShowDetails.vue` are thin adapters that map their respective model's field names (`title`/`original_title` vs `name`/`original_name`) onto the shared presentational `MediaDetails.vue` component. `MediaDetailsError.vue` renders a 404-vs-generic-error `el-result` with a link back home, shown when the detail fetch fails.
+
 **Path aliases**: `#server/...` and `#shared/...` are Nuxt 4 auto-generated aliases (see usage in `server/api/multi/index.get.ts` and `shared/models/*`) — use these rather than relative paths when importing across `server/`/`shared/`.
 
-**i18n**: `@nuxtjs/i18n`, configured in `nuxt.config.ts` with `en`/`fr` locales backed by `i18n/locales/{en,fr}.json`; `fr` is the default locale (also the Element Plus `defaultLocale`). Components pull strings via `useI18n()`'s `t()` (see `app/layouts/default.vue`).
+**i18n**: `@nuxtjs/i18n`, configured in `nuxt.config.ts` with locale codes `en-US`/`fr-FR` (files `i18n/locales/{en,fr}.json`); `fr-FR` is the default locale (also the Element Plus `defaultLocale: 'fr'`). Components pull strings via `useI18n()`'s `t()` (see `app/layouts/default.vue`). Per-page custom URL paths are set via `definePageMeta({ i18n: { paths: {...} } })`, as in the detail pages above.
 
 **PWA**: `@vite-pwa/nuxt`, configured in `nuxt.config.ts` (`pwa` key) — manifest/icons under `public/icons/` + `public/manifest.webmanifest`, `registerType: 'autoUpdate'`, and a Workbox `NetworkFirst` runtime-caching rule for `/api/.*`.
 

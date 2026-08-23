@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { SearchQueryParams } from '#shared/models/SearchQueryParams'
-import type { SearchMovieResponse } from '#shared/models/SearchMovieResponse'
+import type { SearchMultiResponse } from '#shared/models/Multi'
 import type { AutocompleteFetchSuggestions } from 'element-plus'
 import type { MixedSearchResult } from '#shared/models/MixedSearchResult'
 
@@ -9,7 +9,7 @@ const searchForApi = ref<string>('')
 
 const { t, localeProperties } = useI18n()
 
-const queryParams = computed<SearchQueryParams>(() => ({ query: searchForApi.value, include_adult: true, language: localeProperties.value.language, page: 1 }))
+const queryParams = computed<SearchQueryParams>(() => ({ query: searchForApi.value, language: localeProperties.value.language }))
 
 const notify = (type: 'warning' | 'error', message: string) => {
   ElNotification({
@@ -20,7 +20,7 @@ const notify = (type: 'warning' | 'error', message: string) => {
   })
 }
 
-const { data, refresh } = await useFetch<SearchMovieResponse>('/api/multi', {
+const { data, refresh } = await useFetch<SearchMultiResponse>('/api/multi', {
   query: queryParams,
   immediate: false,
   watch: false,
