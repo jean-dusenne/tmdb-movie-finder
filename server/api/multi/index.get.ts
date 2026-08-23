@@ -4,7 +4,7 @@ import { logger } from '#server/utils/logger'
 import type { MovieOrTvResult, SearchMultiResponse } from '#shared/models/Multi'
 
 const multiSearchSchema = z.object({
-  query: z.string(),
+  query: z.string().trim().min(1, 'Query cannot be empty'),
   language: z.string().optional(),
 })
 

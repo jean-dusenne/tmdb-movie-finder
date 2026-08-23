@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import type { SearchQueryParams } from '#shared/models/SearchQueryParams'
-import type { SearchMultiResponse } from '#shared/models/Multi'
+import type { SearchMultiResponse, MovieOrTvResult } from '#shared/models/Multi'
 import type { AutocompleteFetchSuggestions } from 'element-plus'
-import type { MixedSearchResult } from '#shared/models/MixedSearchResult'
 
 const searchUi = ref<string>('')
 const searchForApi = ref<string>('')
@@ -36,15 +35,15 @@ const { data, refresh } = await useFetch<SearchMultiResponse>('/api/multi', {
 
 const emit = defineEmits(['movieSelected'])
 
-const debouncedFetch = useDebounceFn(async (queryString: string, cb: (data: MixedSearchResult[]) => void) => {
+const debouncedFetch = useDebounceFn(async (queryString: string, cb: (data: MovieOrTvResult[]) => void) => {
   searchForApi.value = queryString
   await refresh()
-  cb((data.value?.results ?? []) as MixedSearchResult[])
+  cb((data.value?.results ?? []) as MovieOrTvResult[])
 }, 300)
 
 const querySearchAsync: AutocompleteFetchSuggestions = (queryString, cb) => {
   searchUi.value = queryString
-  debouncedFetch(queryString, cb as (data: MixedSearchResult[]) => void)
+  debouncedFetch(queryString, cb as (data: MovieOrTvResult[]) => void)
 }
 
 const selectMovie = (item: Record<string, unknown>) => {
