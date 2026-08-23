@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { CopyDocument, SuccessFilled, Star } from '@element-plus/icons-vue'
 
-const { id, title, originalTitle, overview, posterPath, originalLanguage, voteAverage, adult } = defineProps<{
+const { id, mediaType, title, originalTitle, overview, posterPath, originalLanguage, voteAverage, adult } = defineProps<{
   id: number
+  mediaType: 'movie' | 'tv'
   title: string
   originalTitle: string | null | undefined
   overview: string | null | undefined
@@ -48,6 +49,9 @@ const copyId = async () => {
           {{ originalTitle }}
         </p>
         <div class="movie-meta">
+          <el-tag type="warning">
+            {{ mediaType === 'movie' ? t('movie') : t('tv') }}
+          </el-tag>
           <el-tag>
             {{ originalLanguage?.toUpperCase() }}
           </el-tag>

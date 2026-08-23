@@ -7,6 +7,7 @@ const { item } = defineProps<{ item: TVSeriesDetails }>()
 <template>
   <MediaDetails
     :id="item.id"
+    media-type="tv"
     :title="item.name"
     :original-title="item.original_name"
     :overview="item.overview"
