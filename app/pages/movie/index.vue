@@ -12,9 +12,13 @@ definePageMeta({
 })
 
 const { params } = useRoute()
+const event = useRequestEvent()
 
-const { data } = await useApi<MovieDetails>(`/api/movies/${params.id}`, {
+const { data, error } = await useApi<MovieDetails>(`/api/movies/${params.id}`, {
   immediate: true,
+  onResponseError({ response }) {
+    if (event) setResponseStatus(event, response.status)
+  },
 })
 </script>
 
@@ -22,5 +26,9 @@ const { data } = await useApi<MovieDetails>(`/api/movies/${params.id}`, {
   <MovieDetails
     v-if="data"
     :item="data"
+  />
+  <MediaDetailsError
+    v-else-if="error"
+    :status-code="error.status"
   />
 </template>
