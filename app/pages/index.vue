@@ -9,12 +9,15 @@ const localePath = useLocalePath()
 
 const setMovie = async (selectedMovie: MixedSearchResult) => {
   const isMovie = selectedMovie.media_type === 'movie'
+  // Titles with no latin/alphanumeric character (e.g. Japanese, Chinese, Arabic)
+  // slugify to an empty string, which vue-router rejects as a missing required param.
+  const titleSlug = slugify(selectedMovie.title ?? selectedMovie.name ?? '') || String(selectedMovie.id)
 
   await router.push(localePath({
     name: isMovie ? 'movie-details' : 'tv-show-details',
     params: {
       id: selectedMovie.id,
-      title: slugify(selectedMovie.title ?? selectedMovie.name ?? ''),
+      title: titleSlug,
     },
   }))
 }
