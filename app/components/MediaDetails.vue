@@ -21,15 +21,10 @@ const resolvedPosterPath = computed(() => {
     : ''
 })
 
-const { copy } = useClipboard()
-const isCopied = ref(false)
+const { copy, copied: isCopied } = useClipboard({ copiedDuring: 3500 })
 
 const copyId = async () => {
   await copy(String(id))
-  isCopied.value = true
-  setTimeout(() => {
-    isCopied.value = false
-  }, 3500)
 }
 </script>
 
