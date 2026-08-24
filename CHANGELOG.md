@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.3](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.4.2...v1.4.3) (2026-08-24)
+
+
+### Bug Fixes
+
+* improve viewport handling and add debug script for development ([80c90e6](https://github.com/jean-dusenne/tmdb-movie-finder/commit/80c90e6bee4043ce374a4ba5259e79eebb414bf3))
+
 ## [1.4.2](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.4.1...v1.4.2) (2026-08-23)
 
 
