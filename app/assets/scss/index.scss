@@ -18,16 +18,27 @@ $-colors: (
 @use './dark.scss';
 
 
-/* Ensure the app root fills the viewport so our layout can use 100% heights */
+/* Ensure the app root fills the viewport so our layout can use 100% heights.
+   overflow: hidden keeps html/body from ever scrolling themselves — .app-main
+   is the only scroll container. On real mobile browsers the address bar
+   collapses/expands while scrolling, which resizes the viewport; without this,
+   that resize can make the page itself scroll in addition to .app-main,
+   and the sticky .app-header (which lives outside .app-main) ends up
+   desynced from that extra scroll and gets covered by the content. */
 html,
 body,
 #__nuxt {
         height: 100%;
         margin: 0;
+        overflow: hidden;
 }
 
 .common-layout {
-        min-height: 100vh;
+        /* 100dvh tracks the real visible viewport on mobile as the browser's
+           address bar shows/hides; 100vh (fixed at initial load) doesn't and
+           is kept only as a fallback for browsers without dvh support. */
+        height: 100vh;
+        height: 100dvh;
         display: flex;
         flex-direction: column;
 

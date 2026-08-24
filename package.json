@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "node --env-file=.env node_modules/.bin/portless moviefinder nuxt dev",
+    "dev": "portless moviefinder --lan --app-port 8989 nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
