@@ -41,7 +41,7 @@
     "eslint": "^10.9.1",
     "happy-dom": "^20.11.10",
     "husky": "^9.1.7",
-    "lint-staged": "^17.3.0",
+    "lint-staged": "^17.4.1",
     "portless": "^0.15.6",
     "sass": "^1.103.1",
     "unocss": "^66.8.1",
