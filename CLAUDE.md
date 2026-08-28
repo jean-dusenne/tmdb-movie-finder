@@ -23,8 +23,12 @@ npm run test:nuxt         # only test/nuxt/*.test.ts (nuxt/happy-dom env)
 npx vitest run test/unit/example.test.ts   # run a single test file
 npx vitest run -t "test name"              # run tests matching a name
 
-npx eslint .               # lint (also runs via lint-staged on commit)
+npm run lint               # eslint . (also runs via lint-staged on commit)
 npx eslint . --fix
+
+npm run test:cucumber:install   # one-time: install Playwright's Chromium
+npm run test:cucumber           # boots a dev server on :8990, then runs the Cucumber/Playwright e2e suite against it
+npm run test:cucumber:run       # run the e2e suite only (assumes the :8990 server is already up, e.g. via `npm run dev:cucumber`)
 ```
 
 Docker (see README.md for full details): `docker build -t tmdb-movie-finder:local .` then `docker run --env-file .env -d -p 8989:8989 tmdb-movie-finder:local`. Deployed to a NAS via Dockhand, which pulls `docker-compose.yml` from `main` directly — no manual `git pull`/`docker compose` on the server.
@@ -64,9 +68,13 @@ Configured via `runtimeConfig.tmdbApi` in `nuxt.config.ts`, populated from env v
 
 **Layout**: `app/layouts/default.vue` wraps pages in an Element Plus `el-container` (header/main/footer). On mobile the footer is `position: fixed` (see `index.scss`); `app/plugins/sticky-footer.client.ts` mirrors the footer's live height into a `--footer-height` CSS custom property (via `ResizeObserver`) so `.app-main` can pad around it.
 
+**End-to-end tests**: `features/` holds a Cucumber.js + Playwright suite (config in `features/cucumber.json`, run via `npm run test:cucumber`, which uses `start-server-and-test` to boot a dev server on port 8990 before running). `features/support/world.ts` defines the `TestWorld` (a Playwright `Browser`/`Page` pair, `baseUrl: http://localhost:8990`); `features/support/hooks.ts`'s `Before` hook launches headless Chromium and stubs `/api/multi` and `/api/movies/:id` via Playwright route interception (no real TMDB calls) before each scenario. Step definitions live in `features/step_definitions/steps.ts`; scenarios in `features/*.feature`.
+
 ## Conventions
 
-- **Commits**: Conventional Commits, enforced by commitlint (`@commitlint/config-conventional`) via a husky `commit-msg` hook. `pre-commit` runs `lint-staged` (`eslint --fix` on staged `.js/.ts/.vue/.mjs/.cjs`).
+- **Commits**: Conventional Commits, enforced by commitlint (`@commitlint/config-conventional`) via a husky `commit-msg` hook. `pre-commit` runs `lint-staged` (`eslint --fix` on staged `.js/.ts/.vue/.mjs/.cjs`); `pre-push` runs `npm test` (the vitest suite).
+- **CI**: `.github/workflows/lint-test.yml` runs on every PR (skipped for `release-please--branches--*` head branches) — `npm run lint`, then `npm test`, then the Cucumber/Playwright e2e suite (`test:cucumber:install` + `test:cucumber`).
 - **Releases**: `release-please` (GitHub Action on push to `main`) drives versioning/changelog from Conventional Commit history — don't hand-edit `CHANGELOG.md` or bump `version` in `package.json` manually.
+- **Dependency updates**: Renovate (`renovate.json`) groups devDependency minor/patch bumps into a single weekly (Saturday) auto-merged PR; other updates (majors, prod deps) are opened individually for manual review.
 - **Styling**: UnoCSS (`uno.config.ts`, Wind4 preset + attributify/icons/typography/web fonts) alongside Element Plus (SCSS import style) and scoped component `<style>` blocks. `app/assets/scss/index.scss` / `dark.scss` are the global stylesheets.
 - **ESLint**: `@nuxt/eslint` flat config with stylistic rules enabled — formatting issues (spacing, quotes, etc.) are lint errors, not just style nits.

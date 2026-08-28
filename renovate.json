@@ -3,6 +3,17 @@
   "extends": [
     "config:recommended"
   ],
+  "packageRules": [
+    {
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "devDependencies (Non-major)",
+      "groupSlug": "dev-dependencies-safe",
+      "automerge": true,
+      "automergeType": "pr", 
+      "schedule": ["every saturday"]
+    }
+  ],
   "postUpdateOptions": [
     "npmInstallTwice"
   ],
