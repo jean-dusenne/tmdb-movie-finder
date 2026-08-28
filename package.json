@@ -52,7 +52,6 @@
     "portless": "^0.15.6",
     "sass": "^1.103.1",
     "start-server-and-test": "^3.0.12",
-    "tsx": "^4.23.12",
     "unocss": "^66.8.1",
     "vitest": "^4.1.11"
   },
@@ -68,6 +67,7 @@
     "fsevents@2.3.3": true,
     "esbuild@0.25.12": true,
     "esbuild@0.28.2": true,
-    "@parcel/watcher@2.6.0": true
+    "@parcel/watcher@2.6.0": true,
+    "fsevents@2.3.2": true
   }
 }
