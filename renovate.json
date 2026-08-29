@@ -11,7 +11,7 @@
       "groupSlug": "dev-dependencies-safe",
       "automerge": true,
       "automergeType": "pr", 
-      "schedule": ["every saturday"]
+      "schedule": ["on saturday"]
     }
   ],
   "postUpdateOptions": [
