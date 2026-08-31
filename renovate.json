@@ -12,6 +12,12 @@
       "automerge": true,
       "automergeType": "pr", 
       "schedule": ["on saturday"]
+    },
+    {
+      "matchDepTypes": ["dependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "automergeType": "pr"
     }
   ],
   "postUpdateOptions": [
