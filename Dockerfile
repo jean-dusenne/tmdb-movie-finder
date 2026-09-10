@@ -1,4 +1,4 @@
-FROM node:24.20.0 AS builder
+FROM node:24.21.0 AS builder
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ RUN npm run build
 
 RUN npm prune --production
 
-FROM node:24.20.0-slim AS runtime
+FROM node:24.21.0-slim AS runtime
 
 WORKDIR /app
 
