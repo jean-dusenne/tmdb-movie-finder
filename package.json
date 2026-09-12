@@ -50,7 +50,7 @@
     "lint-staged": "^17.5.1",
     "playwright": "^1.63.0",
     "portless": "^0.15.6",
-    "sass": "^1.104.0",
+    "sass": "^1.104.1",
     "start-server-and-test": "^3.0.12",
     "unocss": "^66.10.2",
     "vitest": "^5.0.0"
