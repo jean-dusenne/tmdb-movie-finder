@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.4.4](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.4.3...v1.4.4) (2026-09-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency vue to v3.5.42 ([#87](https://github.com/jean-dusenne/tmdb-movie-finder/issues/87)) ([255c0f2](https://github.com/jean-dusenne/tmdb-movie-finder/commit/255c0f22d59cab108ea6151e63627fac99ada9e3))
+* **deps:** update dependency vue-router to ^5.3.0 ([#93](https://github.com/jean-dusenne/tmdb-movie-finder/issues/93)) ([ee76df0](https://github.com/jean-dusenne/tmdb-movie-finder/commit/ee76df06cc478407bfbb61c05f1d96b34993d4c1))
+* **deps:** update dependency vue-router to ^5.3.1 ([#100](https://github.com/jean-dusenne/tmdb-movie-finder/issues/100)) ([77c8a29](https://github.com/jean-dusenne/tmdb-movie-finder/commit/77c8a29275aa3fcda7cc75a6e358b2b709ca87bb))
+* **deps:** update dependency zod to ^4.5.4 ([#96](https://github.com/jean-dusenne/tmdb-movie-finder/issues/96)) ([10bf17c](https://github.com/jean-dusenne/tmdb-movie-finder/commit/10bf17c61fa649061c5472b9effffde337eee9f3))
+* **deps:** update dependency zod to ^4.6.1 ([#106](https://github.com/jean-dusenne/tmdb-movie-finder/issues/106)) ([40d69f1](https://github.com/jean-dusenne/tmdb-movie-finder/commit/40d69f1585bcb68a8b16923999ec1a8ed9e75ac0))
+* **deps:** update dependency zod to ^4.6.2 ([#107](https://github.com/jean-dusenne/tmdb-movie-finder/issues/107)) ([edec852](https://github.com/jean-dusenne/tmdb-movie-finder/commit/edec85286fde1e1b6b48bf5f708f37aedfc2583e))
+* **deps:** update dependency zod to ^4.6.4 ([#110](https://github.com/jean-dusenne/tmdb-movie-finder/issues/110)) ([ded8c07](https://github.com/jean-dusenne/tmdb-movie-finder/commit/ded8c072d133db6e1d7a3dbfe9098578a8756767))
+* **deps:** update dependency zod to ^4.6.5 ([#111](https://github.com/jean-dusenne/tmdb-movie-finder/issues/111)) ([c0456f2](https://github.com/jean-dusenne/tmdb-movie-finder/commit/c0456f29c8ea3ff784aad38124a70e11f276cd64))
+
 ## [1.4.3](https://github.com/jean-dusenne/tmdb-movie-finder/compare/v1.4.2...v1.4.3) (2026-08-24)
 
 
